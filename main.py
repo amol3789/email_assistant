@@ -105,6 +105,25 @@ def verify_credentials():
         print(f"\u274C Microsoft Graph authentication failed: {str(e)}")
         return False
 
+# if __name__ == "__main__":
+#     print("Setting up Email AI Agent...")
+#     setup_templates()
+
+#     if verify_credentials():
+#         print("\n--- Email AI Agent Ready ---")
+#         print("FastAPI Swagger docs: http://localhost:8000/docs")
+#         print("WebSocket: Listening on ws://localhost:8000")
+#         uvicorn.run(
+#             "main:socketio_app",
+#             host="0.0.0.0",
+#             port=8000,
+#             reload=True
+#         )
+#     else:
+#         print("Authentication failed. Server not started.")
+
+app = socketio_app  # Set "app" to be socketio_app
+
 if __name__ == "__main__":
     print("Setting up Email AI Agent...")
     setup_templates()
@@ -113,10 +132,12 @@ if __name__ == "__main__":
         print("\n--- Email AI Agent Ready ---")
         print("FastAPI Swagger docs: http://localhost:8000/docs")
         print("WebSocket: Listening on ws://localhost:8000")
+        
+        # Change port if needed for Render compatibility (Render uses port 10000 by default)
         uvicorn.run(
-            "main:socketio_app",
+            "main:app",  # Change from "main:socketio_app" to "main:app"
             host="0.0.0.0",
-            port=8000,
+            port=8000,  # You may change to 10000 if required by Render
             reload=True
         )
     else:
